@@ -2,208 +2,123 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SILENT NODIE</title>
+<title>SILENT NODIE - Watch Videos & Music Online</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Silent Nodie lets you watch, listen, and download videos and music online for free. Enjoy trending videos and songs easily.">
+<meta name="keywords" content="Silent Nodie, videos, music, download, watch online, free music, free videos">
+<meta name="author" content="Lyton James">
+
+<!-- Open Graph for social media -->
+<meta property="og:title" content="SILENT NODIE - Watch Videos & Music Online">
+<meta property="og:description" content="Watch, listen, and download videos and music online for free.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://your-site.vercel.app">
+<meta property="og:image" content="https://your-site.vercel.app/logo.png">
 
 <style>
-* {
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-body {
-  margin: 0;
-  background: #f1f1f1;
-}
-
-/* HEADER */
-header {
-  background: #000;
-  color: #fff;
-  padding: 15px;
-  font-size: 22px;
-  font-weight: bold;
-  text-align: center;
-}
-
-/* SEARCH */
-.search-box {
-  padding: 10px;
-  background: #fff;
-}
-
-.search-box input {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-/* CATEGORIES */
-.categories {
-  display: flex;
-  gap: 10px;
-  padding: 10px;
-  background: #fff;
-  overflow-x: auto;
-}
-
-.categories button {
-  padding: 8px 15px;
-  border: none;
-  background: #000;
-  color: #fff;
-  border-radius: 20px;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.categories button:hover {
-  background: #444;
-}
-
-/* CONTAINER */
-.container {
-  padding: 15px;
-}
-
-/* GRID */
-.video-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 15px;
-}
-
-/* CARD */
-.video-card {
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-/* VIDEO */
-video {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-}
-
-/* INFO */
-.video-info {
-  padding: 10px;
-}
-
-.video-title {
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 8px;
-}
-
-/* BUTTON */
-.btn {
-  display: block;
-  text-align: center;
-  background: #000;
-  color: #fff;
-  text-decoration: none;
-  padding: 8px;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
-/* FOOTER */
-footer {
-  background: #000;
-  color: #fff;
-  text-align: center;
-  padding: 12px;
-  font-size: 14px;
-  margin-top: 20px;
-}
+/* --- keep all your previous styles here --- */
+* { box-sizing: border-box; font-family: Arial; }
+body { margin: 0; background: #f1f1f1; }
+header { background: #000; color: #fff; padding: 15px; text-align: center; font-size: 22px; font-weight: bold; }
+.search-box { padding: 10px; background: #fff; }
+.search-box input { width: 100%; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc; }
+.categories { display: flex; gap: 10px; padding: 10px; background: #fff; overflow-x: auto; }
+.categories button { padding: 8px 15px; border: none; background: #000; color: #fff; border-radius: 20px; }
+.container { padding: 15px; }
+.section-title { font-size: 20px; margin: 15px 0; font-weight: bold; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
+.card { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,.1); }
+video, audio { width: 100%; }
+.info { padding: 10px; }
+.title { font-weight: bold; font-size: 14px; }
+.btn { display: block; text-align: center; background: #000; color: #fff; padding: 8px; border-radius: 5px; margin-top: 5px; text-decoration: none; }
+footer { background: #000; color: #fff; text-align: center; padding: 12px; margin-top: 20px; }
 </style>
 </head>
 
 <body>
-
 <header>SILENT NODIE</header>
 
-<!-- SEARCH -->
 <div class="search-box">
-  <input type="text" id="searchInput" placeholder="Search videos...">
+  <input id="searchInput" placeholder="Search videos & music...">
 </div>
 
-<!-- CATEGORIES -->
 <div class="categories">
-  <button onclick="filterCategory('all')">All</button>
-  <button onclick="filterCategory('comedy')">Comedy</button>
-  <button onclick="filterCategory('music')">Music</button>
-  <button onclick="filterCategory('movies')">Movies</button>
+  <button onclick="filter('all')">All</button>
+  <button onclick="filter('video')">Videos</button>
+  <button onclick="filter('music')">Music</button>
 </div>
 
 <div class="container">
-  <div class="video-grid" id="videoGrid">
+<div class="section-title">🎬 Videos</div>
+<div class="grid" id="videoGrid">
+<!-- Videos will go here via script -->
+</div>
 
-    <!-- COMEDY -->
-    <div class="video-card" data-title="funny comedy" data-category="comedy">
-      <video controls>
-        <source src="videos/video1.mp4" type="video/mp4">
-      </video>
-      <div class="video-info">
-        <div class="video-title">Funny Comedy</div>
-        <a class="btn" href="videos/video1.mp4" download>⬇ Download</a>
-      </div>
-    </div>
-
-    <!-- MUSIC -->
-    <div class="video-card" data-title="music video" data-category="music">
-      <video controls>
-        <source src="videos/video2.mp4" type="video/mp4">
-      </video>
-      <div class="video-info">
-        <div class="video-title">Music Video</div>
-        <a class="btn" href="videos/video2.mp4" download>⬇ Download</a>
-      </div>
-    </div>
-
-    <!-- MOVIES -->
-    <div class="video-card" data-title="movie clip" data-category="movies">
-      <video controls>
-        <source src="videos/video3.mp4" type="video/mp4">
-      </video>
-      <div class="video-info">
-        <div class="video-title">Movie Clip</div>
-        <a class="btn" href="videos/video3.mp4" download>⬇ Download</a>
-      </div>
-    </div>
-
-  </div>
+<div class="section-title">🎵 Music</div>
+<div class="grid" id="musicGrid">
+<!-- Songs will go here via script -->
+</div>
 </div>
 
 <footer>
-  Developer: Lyton James <br>
-  WhatsApp: +263 78 454 9656
+Developer: Lyton James<br>
+WhatsApp: +263 78 454 9656
 </footer>
 
 <script>
-const searchInput = document.getElementById("searchInput");
-const videoCards = document.querySelectorAll(".video-card");
+// Replace these URLs with your Firebase hosted files
+const videos = [
+"https://firebasestorage.googleapis.com/v0/b/.../video1.mp4?alt=media",
+"https://firebasestorage.googleapis.com/v0/b/.../video2.mp4?alt=media",
+"https://firebasestorage.googleapis.com/v0/b/.../video3.mp4?alt=media",
+"https://firebasestorage.googleapis.com/v0/b/.../video4.mp4?alt=media",
+"https://firebasestorage.googleapis.com/v0/b/.../video5.mp4?alt=media"
+];
 
-searchInput.addEventListener("keyup", () => {
-  const value = searchInput.value.toLowerCase();
-  videoCards.forEach(card => {
-    const title = card.dataset.title;
-    card.style.display = title.includes(value) ? "block" : "none";
-  });
+const songs = [
+"https://firebasestorage.googleapis.com/v0/b/.../song1.mp3?alt=media",
+"https://firebasestorage.googleapis.com/v0/b/.../song2.mp3?alt=media",
+"https://firebasestorage.googleapis.com/v0/b/.../song3.mp3?alt=media",
+"https://firebasestorage.googleapis.com/v0/b/.../song4.mp3?alt=media",
+"https://firebasestorage.googleapis.com/v0/b/.../song5.mp3?alt=media"
+];
+
+const videoGrid = document.getElementById('videoGrid');
+const musicGrid = document.getElementById('musicGrid');
+
+videos.forEach((v,i)=>{
+  videoGrid.innerHTML += `
+  <div class="card item video" data-name="video ${i+1}">
+    <video controls src="${v}"></video>
+    <div class="info">
+      <div class="title">Video ${i+1}</div>
+      <a class="btn" href="${v}" download>Download</a>
+    </div>
+  </div>`;
 });
 
-function filterCategory(category) {
-  videoCards.forEach(card => {
-    card.style.display =
-      category === "all" || card.dataset.category === category
-        ? "block"
-        : "none";
+songs.forEach((s,i)=>{
+  musicGrid.innerHTML += `
+  <div class="card item music" data-name="song ${i+1}">
+    <audio controls src="${s}"></audio>
+    <div class="info">
+      <div class="title">Song ${i+1}</div>
+      <a class="btn" href="${s}" download>Download</a>
+    </div>
+  </div>`;
+});
+
+function filter(type){
+  document.querySelectorAll('.item').forEach(i=>{
+    i.style.display = (type==='all'||i.classList.contains(type))?'block':'none';
+  });
+}
+
+document.getElementById('searchInput').onkeyup = e=>{
+  let v = e.target.value.toLowerCase();
+  document.querySelectorAll('.item').forEach(i=>{
+    i.style.display = i.dataset.name.includes(v)?'block':'none';
   });
 }
 </script>

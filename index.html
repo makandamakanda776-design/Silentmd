@@ -2,139 +2,159 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SILENT NODIE VPN</title>
+<title>SILENT NODIE</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-body { margin:0; font-family: Arial, sans-serif; background:#121212; color:#fff; }
-header { background:#000; padding:20px; text-align:center; font-size:24px; font-weight:bold; }
-nav { display:flex; justify-content:center; gap:15px; background:#1e1e1e; padding:10px; flex-wrap: wrap; }
-nav button { background:#ff0000; color:#fff; border:none; padding:10px 15px; border-radius:5px; cursor:pointer; font-weight:bold; }
-.container { padding:15px; }
-.section { display:none; margin-top:20px; }
-.section.active { display:block; }
-.search-box { margin-bottom:15px; text-align:center; }
-.search-box input { width:80%; padding:10px; border-radius:5px; border:none; font-size:16px; }
-.grid { display:grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap:15px; margin-top:10px; }
-.file-card { background:#1e1e1e; border-radius:10px; padding:10px; margin-bottom:15px; box-shadow:0 4px 10px rgba(0,0,0,0.5); text-align:center; transition: transform .2s; }
-.file-card:hover { transform: scale(1.05); }
-.file-card img { width:100%; height:150px; object-fit:cover; border-radius:5px; }
-.file-card h3 { margin:10px 0 5px 0; font-size:16px; }
-.file-card p { margin:5px 0; font-size:14px; }
-.file-card a { display:inline-block; margin-top:10px; padding:8px 12px; background:#ff0000; color:#fff; text-decoration:none; border-radius:5px; }
-.group-card { background:#222; border-radius:10px; padding:10px; margin-bottom:10px; }
-.group-card a { color:#00ff00; text-decoration:none; font-weight:bold; font-size:16px; }
-footer { background:#000; color:#fff; text-align:center; padding:15px; margin-top:20px; }
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#0f0f0f;
+  color:white;
+}
+header{
+  background:#000;
+  padding:15px;
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+}
+.nav{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:10px;
+}
+.nav button{
+  background:#222;
+  color:white;
+  border:none;
+  padding:10px 15px;
+  border-radius:5px;
+  cursor:pointer;
+}
+.nav button.active{
+  background:red;
+}
+.search-box{
+  text-align:center;
+  margin:15px;
+}
+input{
+  width:80%;
+  padding:10px;
+  border-radius:5px;
+  border:none;
+}
+button.search{
+  padding:10px 15px;
+  margin-top:10px;
+  background:red;
+  color:white;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:15px;
+  padding:15px;
+}
+.card{
+  background:#1c1c1c;
+  padding:10px;
+  border-radius:10px;
+}
+.card iframe{
+  width:100%;
+  height:200px;
+  border-radius:10px;
+}
+.card a{
+  display:block;
+  text-align:center;
+  margin-top:10px;
+  padding:8px;
+  background:#25D366;
+  color:black;
+  border-radius:5px;
+  text-decoration:none;
+  font-weight:bold;
+}
+footer{
+  background:#000;
+  padding:15px;
+  text-align:center;
+  font-size:14px;
+}
 </style>
 </head>
+
 <body>
 
-<header>SILENT NODIE VPN</header>
+<header>SILENT NODIE – Videos & Music</header>
 
-<nav>
-  <button onclick="showSection('home')">Home</button>
-  <button onclick="showSection('vpn')">VPN Files</button>
-  <button onclick="showSection('groups')">Groups</button>
-  <button onclick="showSection('contact')">Contact</button>
-</nav>
-
-<div class="container">
-
-<!-- Home -->
-<div class="section" id="home">
-  <h2>Welcome to Silent Nodie VPN</h2>
-  <p>Download the latest VPN APKs and configuration files. Stay safe and browse freely!</p>
+<div class="nav">
+  <button id="videoBtn" class="active" onclick="setMode('video')">Videos</button>
+  <button id="musicBtn" onclick="setMode('music')">Music</button>
 </div>
 
-<!-- VPN Files -->
-<div class="section" id="vpn">
-  <h2>Available VPN Files</h2>
-  <div class="search-box">
-    <input type="text" id="vpnSearch" placeholder="Search VPNs..." onkeyup="filterVPN()">
-  </div>
-  <div class="grid" id="vpnList"></div>
+<div class="search-box">
+  <input id="search" placeholder="Search videos or music...">
+  <br>
+  <button class="search" onclick="searchContent()">Search</button>
 </div>
 
-<!-- Groups -->
-<div class="section" id="groups">
-  <h2>Join Our Groups</h2>
-  <div id="groupList"></div>
-</div>
+<div class="grid" id="results"></div>
 
-<!-- Contact -->
-<div class="section" id="contact">
-  <h2>Contact Developer</h2>
-  <p>WhatsApp: +263 78 454 9656</p>
-  <p>Email: lytonjames@example.com</p>
-</div>
-
-</div>
-
-<footer>Developer: Lyton James | Silent Nodie VPN</footer>
+<footer>
+Developer: Lyton James<br>
+WhatsApp: +263 78 454 9656
+</footer>
 
 <script>
-// Show sections
-function showSection(id){
-  document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-showSection('home');
+// 🔐 PUT YOUR YOUTUBE API KEY HERE
+const YOUTUBE_API_KEY = "AIzaSyDgxdDAvD9i5zTcssH-CKNpBudb8UilNcA";
 
-// === VPN Files Array ===
-const vpnFiles = [
-  {title:"HA Tunnel VPN", desc:"Latest version 5.1 APK", file:"files/ha-tunnel.apk", category:"Free", img:"https://via.placeholder.com/220x150?text=HA+Tunnel"},
-  {title:"NPV Tunnel VPN", desc:"Secure and fast VPN APK", file:"files/npv-tunnel.apk", category:"Free", img:"https://via.placeholder.com/220x150?text=NPV+Tunnel"},
-  {title:"Premium VPN Pro", desc:"High-speed premium VPN", file:"files/premium-vpn.apk", category:"Premium", img:"https://via.placeholder.com/220x150?text=Premium+VPN"},
-  {title:"Config File - Server 1", desc:"Use with OpenVPN", file:"files/server1.ovpn", category:"Free", img:"https://via.placeholder.com/220x150?text=Config+1"},
-  {title:"Config File - Server 2", desc:"Use with OpenVPN", file:"files/server2.ovpn", category:"Premium", img:"https://via.placeholder.com/220x150?text=Config+2"}
-];
+let mode = "video";
 
-// Load VPN Files dynamically
-const vpnList = document.getElementById('vpnList');
-function loadVPN(){
-  vpnList.innerHTML = '';
-  vpnFiles.forEach(v=>{
-    const div = document.createElement('div');
-    div.className = "file-card";
-    div.dataset.title = v.title.toLowerCase();
-    div.innerHTML = `
-      <img src="${v.img}" alt="${v.title}">
-      <h3>${v.title}</h3>
-      <p>${v.desc} | Category: ${v.category}</p>
-      <a href="${v.file}" download>Download</a>
-    `;
-    vpnList.appendChild(div);
-  });
-}
-loadVPN();
+function setMode(type){
+  mode = type;
+  document.getElementById("videoBtn").classList.remove("active");
+  document.getElementById("musicBtn").classList.remove("active");
 
-// Filter VPNs by search
-function filterVPN(){
-  const query = document.getElementById('vpnSearch').value.toLowerCase();
-  document.querySelectorAll('.file-card').forEach(card=>{
-    card.style.display = card.dataset.title.includes(query) ? 'block' : 'none';
-  });
+  if(type === "video"){
+    document.getElementById("videoBtn").classList.add("active");
+  }else{
+    document.getElementById("musicBtn").classList.add("active");
+  }
 }
 
-// === Groups Array ===
-const groups = [
-  {name:"Join Our WhatsApp Group", link:"https://chat.whatsapp.com/KC9IhbiwgqpJzOEUrX9t0k", icon:"https://cdn-icons-png.flaticon.com/512/124/124034.png"},
-  {name:"Telegram Channel", link:"https://t.me/example2", icon:"https://cdn-icons-png.flaticon.com/512/2111/2111646.png"}
-];
+function searchContent(){
+  const query = document.getElementById("search").value;
+  if(query === "") return alert("Type something");
 
-// Load Groups dynamically with icon
-const groupList = document.getElementById('groupList');
-groupList.innerHTML = '';
-groups.forEach(g=>{
-  const div = document.createElement('div');
-  div.className = "group-card";
-  div.innerHTML = `
-    <a href="${g.link}" target="_blank">
-      <img src="${g.icon}" alt="icon" style="width:20px; vertical-align:middle; margin-right:8px;">
-      ${g.name}
-    </a>
-  `;
-  groupList.appendChild(div);
-});
+  fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=6&q=${query}&key=${YOUTUBE_API_KEY}`)
+    .then(res => res.json())
+    .then(data => {
+      const box = document.getElementById("results");
+      box.innerHTML = "";
+
+      data.items.forEach(item => {
+        const videoId = item.id.videoId;
+        box.innerHTML += `
+          <div class="card">
+            <iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>
+            <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank">
+              Watch / Download on YouTube
+            </a>
+          </div>
+        `;
+      });
+    })
+    .catch(() => alert("Error loading content"));
+}
 </script>
 
 </body>
